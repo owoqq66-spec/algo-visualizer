@@ -8,8 +8,10 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: '首頁', link: '/' },
+      { text: '二分搜尋', link: '/binary-search' },
+      { text: '並查集', link: '/dsu' },
+      { text: '開發日誌', link: '/dev-log' }
     ],
 
     sidebar: [
