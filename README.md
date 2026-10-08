@@ -42,3 +42,5 @@ int main(){
     cin >> n;
 }
 ```
+
+rm -rf .vitepress/components components && mkdir components && touch components/BinarySearchVisualizer.vue
