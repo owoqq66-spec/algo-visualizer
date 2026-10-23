@@ -1,0 +1,1 @@
+import{_ as i,o as a,c as n,a0 as h}from"./chunks/framework.D0n4wE3I.js";const g=JSON.parse('{"title":"Disjoint Set Union 並查集","description":"","frontmatter":{},"headers":[],"relativePath":"dsu.md","filePath":"dsu.md"}'),p={name:"dsu.md"};function k(l,s,t,e,E,d){return a(),n("div",null,[...s[0]||(s[0]=[h("",13)])])}const y=i(p,[["render",k]]);export{g as __pageData,y as default};
