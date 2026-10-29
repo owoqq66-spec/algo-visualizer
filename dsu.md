@@ -1,4 +1,10 @@
+<script setup>
+import DsuVisualizer from './components/DsuVisualizer.vue'
+</script>
+
 # Disjoint Set Union 並查集
+
+<DsuVisualizer />
 
 Disjoint Set Union(DSU) 也就是並查集 是一種資料結構 他用於確認兩個元素之間是否在同一個集合中 並且可以快速的合併兩個集合 舉個例子 透過並查集 你可以知道A和B是否在同一個群體中 也可以在很短的時間內將C與D的群體合併在一起
 
@@ -13,12 +19,16 @@ Disjoint Set Union(DSU) 也就是並查集 是一種資料結構 他用於確認
 再來我們要分組了 如果6跟7想要湊一組67的話 他們需要決定一個組長 這邊提一下 在並查集中組長通常只是用來確認兩個人是否在同一個群體中 所以誰是組長不重要 這邊拿6當組長 因此改變7的組長 parent[7]從7變成6
 那如果是一群人要合併到另一群人呢？
 假設A群體{1,2,3,4}要併入B群體{5,6,7,8} 而他們當前的parent陣列長這樣：
+```text
 index    : 1 2 3 4 5 6 7 8
 parent[] : 1 1 1 1 5 5 5 5
+```
 這時候如果要合併 就把B組組長(5)的組長換成A組組長(1)
 因此會長這樣：
+```text
 index    : 1 2 3 4 5 6 7 8
 parent[] : 1 1 1 1 1 5 5 5
+```
 你可能會想說要把5678記憶中的組長全部換成1 可是這樣太耗時了 我們其實只需要修改5記憶中的組長就好了 由於只有動一個值 所以超快！ 非常耐斯阿
 你可能會好奇這樣真的可以記錄嗎？ 待會就會解釋為什麼這樣可以了 先記好 這個操作就是Union(a,b) 時間複雜度為O(1)
 然後這邊也麻煩注意一下 這裡所說的時間複雜度是合併的複雜度 還不包含查B組組長的時間喔
@@ -31,7 +41,7 @@ parent[] : 1 1 1 1 1 5 5 5
 這邊先放一下DSU初代機 他會慢慢升級
 ```cpp
 // 初始化
-void init(){
+void init(int n){
     for(int i=1;i<=n;i++){
         par[i] = i;
     }
@@ -39,10 +49,10 @@ void init(){
 }
 
 // 查詢
-int finddsu(int a)｛  // 這邊注意一下 有find這個函式 記得不要跟他撞名
+int finddsu(int a){  // 這邊注意一下 有find這個函式 記得不要跟他撞名
     if(par[a]==a) return a;
-    return finddsu[par[a]];
-｝
+    return finddsu(par[a]);
+}
 
 // 合併
 void uniondsu(int a,int b){
@@ -52,8 +62,10 @@ void uniondsu(int a,int b){
 ```
 接下來我們來看看極端一點的例子：
 如果有一個超長 像鏈子一樣的組別 長這樣：
+```text
 index    : 1 2 3 4 ... n-1 n
 parent[] : 1 1 2 3 ... n-2 n-1
+```
 這樣find(n)就要O(n)的時間！！ 太久了啦！
 那要怎麼辦呢？ 很遺憾 我們確實沒有辦法讓「 第一次」的find(n)時間複雜度降下來 不過呢 只有第一次才會有這個問題
 要是我們在每一層find 找到他組長時 幫他更新一下記憶 讓他知道現在最新的組長呢？
@@ -81,15 +93,14 @@ int finddsu(int a){ // 這邊注意一下 有find這個函式 記得不要跟他
 這裡拿size版來示範
 
 ```cpp
-const int MAXN = 200005;
-
 struct DSU{
-    vector<int> par(MAXN),sz(MAXN);
+    vector<int> par,sz;
 
-    void init(){
+    void init(int n){
+        par.resize(n+5);
+        sz.resize(n+5,1);
         for(int i=1;i<=n;i++){
             par[i] = i;
-            sz[i] = 1;
         }
     }
 
@@ -101,8 +112,9 @@ struct DSU{
     void uniondsu(int a,int b){
         int A = finddsu(a),B = finddsu(b);
         if(A==B) return; // 如果已經在同一組就提早結束
-        if(sz[B]>sz[a]) swap(A,B);
+        if(sz[B]>sz[A]) swap(A,B);
         par[B] = A;
+        sz[A] += sz[B];
         return;
     }
 };

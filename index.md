@@ -1,25 +1,18 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
-layout: home
-
-hero:
-  name: "演算法視覺化教材"
-  text: "algo-visual"
-  tagline: My great project tagline
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+sidebar: false
+prev: false
+next: false
 ---
+
+<script setup>
+import HeroHome from './components/HeroHome.vue'
+</script>
+
+<HeroHome />
+
+<style>
+/* 消除 VitePress 首頁多餘的留白 */
+.VPHome { padding-bottom: 0 !important; }
+</style>
+
 
