@@ -43,7 +43,7 @@
     </div>
 
     <div v-if="filteredAlgos.length === 0" class="no-result">
-      很抱歉 我只是演算法視覺化教材 沒有辦法處理這件事情
+      很抱歉 我只是個演算法視覺化教材 沒有辦法處理這件事情
     </div>
   </div>
 </template>
@@ -62,14 +62,14 @@ const algos = [
     id: 'bs',
     title: '二分搜尋法 (Binary Search)',
     category: '搜尋',
-    link: '/algo-visualizer/binary-search.html',
+    link: '/binary-search',
     desc: '利用單調性在 O(log n) 時間內快速鎖定目標值，包含區間縮減與指標防溢位技巧。'
   },
   {
     id: 'dsu',
     title: '並查集 (DSU)',
     category: '資料結構',
-    link: '/algo-visualizer/dsu.html',
+    link: '/dsu',
     desc: '快速合併群體與查詢從屬關係，支援路徑壓縮 (Path Compression) 與按大小合併 (Union by Size)。'
   }
 ]

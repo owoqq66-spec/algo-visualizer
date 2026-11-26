@@ -12,8 +12,8 @@
           <p class="tagline">“當你懶的思考演算法只想看動畫時”</p>
           
           <div class="hero-actions">
-            <a href="/algo-visualizer/algorithms" class="btn-brand">該卷了</a>
-            <a href="/algo-visualizer/dev-log" class="btn-alt">開發日誌</a>
+              <a :href="withBase('/algorithms')" class="btn-brand">該卷了</a>
+              <a :href="withBase('/dev-log')" class="btn-alt">開發日誌</a>
           </div>
         </div>
         
@@ -70,6 +70,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { withBase } from 'vitepress'
 
 const ARRAY_SIZE = 100
 const MAX_VAL = 100
@@ -363,37 +364,31 @@ const currentAlgo = computed(() => algos[currentAlgoIndex.value])
 onMounted(() => { startAutoPlay() })
 onUnmounted(() => { stopFlag.value = true })
 </script>
-
 <style scoped>
-/* 頁面外框 */
 .custom-home-page {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1380px;
   margin: 0 auto;
-  padding: 40px;
+  padding: 16px 0;
   font-family: var(--vp-font-family);
-  display: flex;
 }
 
 .main-content {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 38px;
 }
 
-/* 上層：左文字 與 右動畫 */
 .hero-top-section {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1.18fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 50px;
+  gap: 48px;
   width: 100%;
 }
 
 .hero-left-content {
-  flex: 0 0 45%; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -401,40 +396,38 @@ onUnmounted(() => { stopFlag.value = true })
 }
 
 .hero-right-content {
-  flex: 0 0 55%; 
-  min-width: 450px; 
+  width: 100%;
+  min-width: 0;
 }
 
-/* 文字樣式 */
 .hero-title {
   display: flex;
   flex-direction: column;
   line-height: 1.15;
   font-weight: 900;
-  margin: 0 0 16px 0;
+  margin: 0 0 18px 0;
   border: none;
 }
 
 .gradient-text {
-  font-size: clamp(2.4rem, 3.5vw, 3.4rem);
-  white-space: nowrap; 
+  font-size: clamp(2.8rem, 4.2vw, 4.2rem);
+  white-space: nowrap;
   background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding-bottom: 5px;
+  padding-bottom: 4px;
 }
 
 .sub-name {
-  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+  font-size: clamp(2.1rem, 3.2vw, 3.2rem);
   color: var(--vp-c-text-1);
 }
 
 .tagline {
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  font-size: clamp(1.15rem, 1.4vw, 1.45rem);
   color: var(--vp-c-text-2);
-  margin-bottom: 30px;
+  margin: 0 0 32px 0;
   font-weight: 600;
-  white-space: nowrap;
 }
 
 .hero-actions {
@@ -446,10 +439,10 @@ onUnmounted(() => { stopFlag.value = true })
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 28px;
-  border-radius: 8px;
+  padding: 14px 34px;
+  border-radius: 10px;
   font-weight: bold;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   text-decoration: none !important;
   transition: all 0.2s ease;
 }
@@ -457,12 +450,11 @@ onUnmounted(() => { stopFlag.value = true })
 .btn-brand {
   background-color: var(--vp-c-brand-1);
   color: #ffffff !important;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
 .btn-brand:hover {
   background-color: var(--vp-c-brand-2);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
 .btn-alt {
@@ -475,130 +467,135 @@ onUnmounted(() => { stopFlag.value = true })
   transform: translateY(-2px);
 }
 
-/* 動畫區塊 Playground */
-.playground-wrapper { 
-  width: 100%; 
-  height: 380px; 
-  background: var(--vp-c-bg-soft); 
-  border: 1px solid var(--vp-c-divider); 
-  border-radius: 14px; 
-  display: flex; 
-  flex-direction: column; 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+.playground-wrapper {
+  width: 100%;
+  height: clamp(340px, 42vh, 430px);
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   overflow: hidden;
 }
 
-.playground-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 1rem 1.5rem;
+.playground-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.4rem;
   background: rgba(0, 0, 0, 0.02);
-  border-bottom: 1px solid var(--vp-c-divider); 
+  border-bottom: 1px solid var(--vp-c-divider);
+  white-space: nowrap;
 }
-.dark .playground-header { background: rgba(255, 255, 255, 0.02); }
-.title { font-weight: bold; font-size: 1rem; color: var(--vp-c-text-1); }
-.algo-name { color: var(--vp-c-brand-1); font-weight: 900; }
-.hint { font-size: 0.85rem; color: #10b981; font-weight: bold; font-style: italic; }
+.dark .playground-header {
+  background: rgba(255, 255, 255, 0.02);
+}
+.title {
+  font-weight: bold;
+  font-size: 1.08rem;
+  color: var(--vp-c-text-1);
+}
+.algo-name {
+  color: var(--vp-c-brand-1);
+  font-weight: 900;
+}
+.hint {
+  font-size: 0.95rem;
+  color: #10b981;
+  font-weight: bold;
+}
 
-.bars-container { 
-  display: flex; 
-  align-items: flex-end; 
-  justify-content: center; 
+.bars-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   flex-grow: 1;
-  width: 100%; 
-  gap: 2px;
-  padding: 2rem 1.5rem 0.5rem 1.5rem; 
+  width: 100%;
+  gap: 2.5px;
+  padding: 1.6rem 1.4rem 0.6rem 1.4rem;
   box-sizing: border-box;
 }
-.bar { 
+.bar {
   flex: 1;
-  background-color: var(--vp-c-brand-soft); 
+  background-color: var(--vp-c-brand-soft);
   border-radius: 3px 3px 0 0;
   min-height: 3px;
 }
-.bar.active { background-color: #ef4444 !important; }
-.bar.sorted { background-color: #10b981; }
+.bar.active {
+  background-color: #ef4444 !important;
+}
+.bar.sorted {
+  background-color: #10b981;
+}
 
-/* =========================================
-   下層：三欄特色卡片 (核心排版修正)
-   ========================================= */
 .features-bottom-section {
   display: grid;
-  /* 確保切分成等寬的三個格子 */
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   width: 100%;
 }
 
 .feature-card {
-  /* 讓卡片內部使用 Flex，確保文字能正常排列且置左 */
   display: flex;
-  flex-direction: column; 
+  flex-direction: row;
   align-items: flex-start;
+  gap: 18px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  padding: 30px;
-  border-radius: 12px;
-  /* 讓所有卡片高度強制撐滿 Grid 的格子，達成等高對齊 */
+  padding: 24px 26px;
+  border-radius: 14px;
   height: 100%;
   box-sizing: border-box;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 .feature-card:hover {
   border-color: var(--vp-c-brand-soft);
   background: var(--vp-c-bg-mute);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 }
 
 .feature-card .icon {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+  font-size: 1.75rem;
   background: var(--vp-c-bg-mute);
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
 }
 
-.feature-text { 
-  display: flex; 
-  flex-direction: column; 
+.feature-text {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
-.feature-card h4 { 
-  margin: 0 0 12px 0; 
-  font-size: 1.15rem; 
-  font-weight: 700; 
-  color: var(--vp-c-text-1); 
+.feature-card h4 {
+  margin: 0 0 6px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
 }
-.feature-card p { 
-  margin: 0; 
-  font-size: 0.95rem; 
-  color: var(--vp-c-text-2); 
-  line-height: 1.6; 
+.feature-card p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.5;
 }
 
-/* 響應式：平板與手機自動縮放 */
-@media (max-width: 1024px) {
-  .hero-top-section { flex-direction: column; text-align: center; gap: 40px; }
-  .hero-left-content { align-items: center; flex: 1; }
-  .hero-right-content { min-width: 100%; flex: 1; }
-  
-  .features-bottom-section { 
-    /* 平板縮小為兩欄 */
-    grid-template-columns: repeat(2, 1fr); 
+@media (max-width: 960px) {
+  .hero-top-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 28px;
   }
-}
-
-@media (max-width: 640px) {
-  .features-bottom-section { 
-    /* 手機縮小為單欄 */
-    grid-template-columns: 1fr; 
+  .hero-left-content {
+    align-items: center;
+  }
+  .features-bottom-section {
+    grid-template-columns: 1fr;
   }
 }
 </style>
-
-

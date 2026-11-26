@@ -11,8 +11,21 @@ import HeroHome from './components/HeroHome.vue'
 <HeroHome />
 
 <style>
-/* 消除 VitePress 首頁多餘的留白 */
-.VPHome { padding-bottom: 0 !important; }
+.VPDoc {
+  padding: 24px 32px !important;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+}
+.VPDoc .container,
+.VPDoc .content,
+.VPDoc .content-container {
+  max-width: 1440px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+.VPDoc .aside {
+  display: none !important;
+}
 </style>
-
-
